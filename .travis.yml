@@ -6,7 +6,7 @@ python:
   - "3.6"
 
 install:
-  - python setup.py install
+  - python setup.py develop
 
 script:
   - python setup.py test
