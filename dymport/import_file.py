@@ -30,7 +30,7 @@ def import_file(name, file):
 
         try:
             module = SourceFileLoader(name, file).load_module()
-        except FileNotFoundError:
+        except (FileNotFoundError, SyntaxError):
             raise ImportError("Could not import: '{}'".format(file))
 
         return module
