@@ -13,7 +13,7 @@ def import_file(name, file):
 
     Raises an ImportError if it could not be imported.
     """
-    if version_info > (3, 5):
+    if version_info >= (3, 5):
         from importlib.util import module_from_spec, spec_from_file_location
 
         spec = spec_from_file_location(name, file)
@@ -23,6 +23,16 @@ def import_file(name, file):
 
         module = module_from_spec(spec)
         spec.loader.exec_module(module)
+        return module
+
+    elif version_info >= (3, 3):
+        from importlib.machinery import SourceFileLoader
+
+        try:
+            module = SourceFileLoader(name, file).load_module()
+        except FileNotFoundError:
+            raise ImportError("Could not import: '{}'".format(file))
+
         return module
 
     else:
