@@ -36,5 +36,11 @@ def import_file(name, file):
         return module
 
     else:
-        raise ImportError("Dymport: unsupported Python version, could not "
-                          "import '{}'".format(file))
+        import imp
+
+        try:
+            module = imp.load_source(name, file)
+        except (IOError, SyntaxError):
+            raise ImportError("Could not import: '{}'".format(file))
+
+        return module
