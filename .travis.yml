@@ -11,9 +11,6 @@ install:
   # Upgrade build dependencies to the latest version
   - pip install -U pip setuptools
 
-  # Perform local installation of dymport
-  - python setup.py develop
-
   # Install codecov package for codecov.io
   - pip install codecov
 
